@@ -8,16 +8,529 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		
+		<!-- Custom styles -->
+		<style>
+			.reveal {
+				background-color: white;
+			}
+			.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+				color: #333;
+			}
+			.reveal p, .reveal li {
+				color: #333;
+			}
+			
+			/* Two-column layout */
+			.two-column {
+				display: flex;
+				gap: 40px;
+			}
+			.column {
+				flex: 1;
+				padding: 20px;
+				border-radius: 10px;
+				box-sizing: border-box;
+			}
+			.column h3 {
+				font-size: 1.3em;
+				margin-top: 0;
+				margin-bottom: 10px;
+			}
+			.column ul {
+				margin: 0;
+				padding-left: 20px;
+				text-align: left;
+				font-size: 0.7em;
+				line-height: 1.4;
+			}
+			.column ul li {
+				margin-bottom: 8px;
+			}
+			.ads-column {
+				background-color: #e1e7f0;
+				border: 2px solid #2196F3;
+			}
+			.dermalog-column {
+				background-color: #fff3e0;
+				border: 2px solid #FF9800;
+			}
+			
+			/* Section headings */
+			section > h2 {
+				font-size: 1.8em;
+				margin-bottom: 15px;
+			}
+			
+			/* Comparison summary box */
+			.comparison-summary {
+				margin-top: 10px;
+				font-size: 0.6em;
+				text-align: center;
+				line-height: 1.3;
+			}
+			.comparison-summary p {
+				margin: 5px 0;
+			}
+			
+			/* Mermaid diagram styling */
+			.mermaid {
+				text-align: center;
+				margin: 0;
+				padding: 0;
+			}
+			.mermaid svg {
+				max-width: 100%;
+				height: auto;
+				display: block;
+				margin: 0 auto;
+			}
+			.column .mermaid {
+				margin: 0;
+				padding: 0;
+			}
+			.column pre {
+				margin: 0;
+				padding: 0;
+			}
+			
+			/* Special styling for Geschäftsprozesse section */
+			.geschaeftsprozesse-section {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+			}
+			.geschaeftsprozesse-section .two-column {
+				margin-bottom: 5px;
+				gap: 20px;
+			}
+			.geschaeftsprozesse-section .column {
+				padding: 8px;
+			}
+			.geschaeftsprozesse-section h3 {
+				font-size: 1.1em;
+				margin-bottom: 3px;
+				margin-top: 0;
+			}
+			.geschaeftsprozesse-section .comparison-summary {
+				margin-top: 5px;
+				font-size: 0.55em;
+			}
+			
+			/* Connecting lines layout */
+			.connection-container {
+				position: relative;
+				display: flex;
+				justify-content: space-between;
+				padding: 20px;
+			}
+			.connection-item {
+				padding: 15px;
+				margin: 10px 0;
+				border-radius: 8px;
+				background-color: #f5f5f5;
+				border: 2px solid #ddd;
+			}
+			.connection-item.similar {
+				background-color: #c8e6c9;
+				border-color: #4CAF50;
+			}
+			.connection-item.different {
+				background-color: #ffcdd2;
+				border-color: #f44336;
+			}
+			
+			/* Matching boxes layout */
+			.matching-container {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+			.match-row {
+				display: flex;
+				gap: 20px;
+				align-items: center;
+			}
+			.match-box {
+				flex: 1;
+				padding: 20px;
+				border-radius: 10px;
+				text-align: center;
+				min-height: 80px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.match-box.ads {
+				background-color: #e1e7f0;
+				border: 2px solid #2196F3;
+			}
+			.match-box.dermalog {
+				background-color: #fff3e0;
+				border: 2px solid #FF9800;
+			}
+			.match-indicator {
+				width: 60px;
+				text-align: center;
+				font-size: 2em;
+			}
+			.match-indicator.similar {
+				color: #4CAF50;
+			}
+			.match-indicator.different {
+				color: #f44336;
+			}
+			
+			/* Legend */
+			.legend {
+				display: flex;
+				justify-content: center;
+				gap: 30px;
+				margin-top: 20px;
+				font-size: 0.8em;
+			}
+			.legend-item {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.legend-color {
+				width: 20px;
+				height: 20px;
+				border-radius: 4px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+
+				<!-- Title Slide -->
+				<section>
+					<h1 style="font-size: 2em; margin-bottom: 20px;">Unternehmensvergleich</h1>
+					<div style="display: flex; justify-content: space-around; align-items: flex-start; margin-top: 20px;">
+						<div style="width: 40%; display: flex; flex-direction: column; align-items: center;">
+							<!-- TODO: Add ADS logo here -->
+							<img src="images/ads-logo.png" alt="ADS Logo" style="max-width: 250px; height: 150px; object-fit: contain; background: white; padding: 15px;">
+							<p style="font-size: 0.8em; margin-top: 10px; text-align: center;">ADS Allgemeine Deutsche Steuerberatungsgesellschaft mbH</p>
+						</div>
+						<div style="width: 40%; display: flex; flex-direction: column; align-items: center;">
+							<!-- TODO: Add Dermalog logo here -->
+							<img src="images/dermalog-logo.png" alt="Dermalog Logo" style="max-width: 250px; height: 150px; object-fit: contain; background: white; padding: 15px;">
+							<p style="font-size: 0.8em; margin-top: 10px; text-align: center;">Dermalog Identity Services GmbH</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- Overview -->
+				<section>
+					<h2>Überblick</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+							<p>Steuerberatungsgesellschaft mit Fokus auf EDEKA-Kaufleute</p>
+						</div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+							<p>Hersteller von biometrischen Soft- und Hardwarelösungen</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- Rechtsform -->
+				<section>
+					<h2>Rechtsform</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+							<ul>
+								<li><strong>GmbH</strong></li>
+								<li style="color: #1976D2;"><strong>Besonderheit:</strong> Gesellschafter und Geschäftsführer müssen Steuerberater sein</li>
+								<li>Steuerliche Vorteile & flexible Gesellschafterstruktur</li>
+								<li>Hohes Ansehen der Rechtsform</li>
+							</ul>
+						</div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+							<ul>
+								<li><strong>GmbH</strong></li>
+								<li style="color: #F57C00;"><strong>Rechtsformwahl:</strong> Haftungsbeschränkung</li>
+								<li>Steuerliche Vorteile & flexible Gesellschafterstruktur</li>
+								<li>Hohes Ansehen der Rechtsform</li>
+							</ul>
+						</div>
+					</div>
+					<div class="comparison-summary">
+						<p><strong>Gemeinsamkeiten:</strong> GmbH | Steuerliche Vorteile | Flexible Struktur | Hohes Ansehen</p>
+						<p><strong>Unterschiede:</strong> ADS erfordert Steuerberater-Qualifikation | Dermalog betont Haftungsbeschränkung</p>
+					</div>
+				</section>
+
+				<!-- Leistungsangebote -->
+				<section>
+					<h2>Leistungsangebote</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul>
+                                <li><strong>Steuerberatung</strong></li>
+                                <li>Unternehmensberatung</li>
+                                <li>Privatberatung</li>
+                                <li>Digitale Lösungen für Leistungen</li>
+                            </ul>
+                        </div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul>
+                                <li>Hard- und Software für Biometrische Anwendungen</li>
+                                <li>Wartung und Verbesserung der Systeme</li>
+                            </ul>
+                        </div>
+					</div>
+                    <div class="comparison-summary">
+                        <p><strong>Gemeinsamkeiten:</strong> Softwareentwicklung</p>
+                        <p><strong>Unterschiede:</strong> ADS hat den Fokus auf Software | Dermalog entwickelt ganzheitliche Systeme</p>
+                    </div>
+				</section>
+
+				<!-- Marktposition -->
+				<section>
+					<h2>Marktposition</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul style="font-size: 0.65em;">
+                                <li style="color: #1976D2;">Deutschlandweit tätig</li>
+                                <li>Marktführer in Steuerberatung für Edeka-Kaufleute</li>
+                                <li><strong>Konkurrenz:</strong> Big Four, lokale Steuerberater</li>
+                                <li><strong>Competitive Edge:</strong> Auf Edeka-Kaufleute zugeschnittene Auswertungen möglich</li>
+                            </ul>
+                        </div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul style="font-size: 0.65em;">
+                                <li style="color: #F57C00;">Weltweit tätig</li>
+                                <li>Etabliert in DE, Asien, Südafrika</li>
+                                <li><strong>Konkurrenz:</strong> NEC, Thales, IDEMIA, HID Global</li>
+                                <li><strong>Competitive Edge:</strong> Schnellste Fingerabdruckerkennung der Welt</li>
+                            </ul>
+                        </div>
+					</div>
+                    <div class="comparison-summary" style="font-size: 0.5em; margin-top: 8px;">
+                        <p><strong>Gemeinsamkeiten:</strong> <strong>Wettbewerbsvorteile</strong> | <strong>Etablierte Position</strong></p>
+                        <p><strong>Unterschiede:</strong> ADS regional (DE) | Dermalog global | Nische vs. Weltmarkt</p>
+                    </div>
+				</section>
+
+				<!-- Wirtschaftliche Ziele -->
+				<section>
+					<h2>Wirtschaftliche Ziele</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul>
+                                <li style="color: #1976D2;">100% aller Edeka-Kaufleute zum Mandanten machen</li>
+                            </ul>
+                        </div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul>
+                                <li style="color: #F57C00;">Weltmarktführer in biometrischen Angeboten werden</li>
+                                <li>Innovationsführer bei Biometrieangeboten</li>
+                            </ul>
+                        </div>
+					</div>
+                    <div class="comparison-summary">
+                        <p><strong>Gemeinsamkeiten:</strong> <strong>Marktführerschaft angestrebt</strong> | <strong>Wachstumsorientiert</strong></p>
+                        <p><strong>Unterschiede:</strong> ADS fokussiert auf Nischenmarkt (Edeka) | Dermalog strebt globale Führung an</p>
+                    </div>
+				</section>
+
+				<!-- Ökologische Ziele -->
+				<section>
+					<h2>Ökologische Ziele</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul>
+                                <li>70% weniger Papierverbrauch</li>
+                                <li><strong>100% grüner Strom</strong></li>
+                                <li>Reduktion des CO₂-Ausstoßes durch HO und virtuelle Meetings</li>
+                            </ul>
+                        </div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul>
+                                <li>ISO-Zertifizierung 140001: (Umweltauswirkungen erfassen, verbessern) </li>
+                                <li>ISO-Zertifizierung 50001 (Erhöhung der Energieeffizienz, Energiekosten, CO2-Reduktion)</li>
+                                <li><strong>100% grüner Strom</strong></li>
+                            </ul>
+						</div>
+					</div>
+                    <div class="comparison-summary">
+                        <p><strong>Gemeinsamkeiten:</strong> <strong>100% grüner Strom</strong> | <strong>Papierverbrauch reduzieren</strong> | <strong>CO₂-Reduktion</strong></p>
+                        <p><strong>Unterschiede:</strong> ADS setzt auf Homeoffice & digitale Meetings | Dermalog nutzt ISO-Zertifizierungen für systematisches Umweltmanagement</p>
+                    </div>
+				</section>
+
+				<!-- Soziale Ziele -->
+				<section>
+					<h2>Soziale Ziele</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul>
+                                <li>40% Frauenquote in Führungspositionen</li>
+                                <li><strong>70 aktive Auszubildende</strong></li>
+                                <li>Barrierefreie Arbeitsplätze</li>
+                            </ul>
+						</div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul>
+                                <li>Frauen in Führungspositionen</li>
+                                <li>Weltweiter Akteur</li>
+                                <li>Angestellte aus über 30 Nationen</li>
+                                <li>Offices weltweit</li>
+                            </ul>
+                        </div>
+					</div>
+                    <div class="comparison-summary">
+                        <p><strong>Gemeinsamkeiten:</strong> <strong>Diversität fördern</strong> | <strong>Frauen in Führungspositionen</strong></p>
+                        <p><strong>Unterschiede:</strong> ADS fokussiert auf Ausbildung (70 Azubis) & Barrierefreiheit | Dermalog betont internationale Vielfalt (30+ Nationen)</p>
+                    </div>
+				</section>
+
+				<!-- Geschäftsprozesse -->
+				<section class="geschaeftsprozesse-section">
+					<h2 style="font-size: 1.6em; margin-bottom: 10px;">Geschäftsprozesse</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <pre class="mermaid">
+                                ---
+                                config:
+                                  theme: neutral
+                                ---
+                                flowchart TD
+                                    A(["Ticket wird erstellt"]) --> B("Ticket wird zugeordnet")
+                                    B --> C["Ticket wird bearbeitet"]
+                                    C --> D{"Tests"}
+                                    D --"Test erfolgreich"-->E["Ticket wird geschlossen"]
+                                    D --"Test nicht erfolgreich"-->C
+                                    E --"Rückfragen"--> C
+                            </pre>
+						</div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+							<pre class="mermaid">
+                                ---
+                                config:
+                                  theme: neutral
+                                ---
+                                flowchart TD
+                                    A["Bewerbung auf öffentl. Ausschreibung"] --> B["Vertragsabschluss"]
+                                    B --> C["Projektinitialisierung durch Projektmanager"]
+                                    C --> D["Entwicklung"]
+                                    D --> E["Qualitätssicherung"]
+                                    E --> F["Tests beim Kunden (Abnahme)"]
+                                    F --> G["Einrichtung & Schulungen"]
+                                    G --> H["Wartungs- und Verbesserungsverträge"]
+                            </pre>
+                        </div>
+					</div>
+				</section>
+
+				<!-- Nachhaltigkeit & Diversität -->
+				<section>
+					<h2 style="margin-bottom: 10px;">Nachhaltigkeit & Diversität</h2>
+					<p style="font-size: 0.7em; margin-bottom: 15px;">Maßnahmen zur Nachhaltigkeit und Diversität</p>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul style="font-size: 0.65em;">
+                                <li>Digitalisierung der Leistungen, Reduktion Papierverbrauch</li>
+                                <li>Eigene Nachhaltigkeitsabteilung</li>
+                                <li>Erstellung von Nachhaltigkeitsreports</li>
+                                <li>Förderung der nachhaltigen Mobilität (ÖV/Jobrad)</li>
+                            </ul>
+                        </div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul style="font-size: 0.65em;">
+                                <li>ISO-Zertifizierungen</li>
+                                <li>Verringerung des Papierverbrauchs</li>
+                                <li>Nutzung von Ökostrom</li>
+                                <li>Förderung der nachhaltigen Mobilität (ÖV/Jobrad)</li>
+                                <li>Softwareoptimierung mit Ziel der Energieeffizienz</li>
+                            </ul>
+                        </div>
+					</div>
+                    <div class="comparison-summary" style="font-size: 0.5em; margin-top: 8px;">
+                        <p><strong>Gemeinsamkeiten:</strong> <strong>Nachhaltige Mobilität</strong> | <strong>Papierverbrauch reduzieren</strong> | <strong>Ökostrom</strong></p>
+                        <p><strong>Unterschiede:</strong> ADS: Nachhaltigkeitsabteilung & Reports | Dermalog: ISO-Zertifizierungen & Softwareoptimierung</p>
+                    </div>
+				</section>
+
+				<!-- Fort- und Weiterbildung -->
+				<section>
+					<h2>Fort- und Weiterbildung</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul>
+                                <li>Interne Schulungen</li>
+                                <li>Zugang zu Lernplatformen (z.B. Udemy Business)</li>
+                            </ul>
+                        </div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul>
+                                <li>Teilnahme an Konferenzen, Schulungen und Fortbildungen</li>
+                                <li>Förerung von Forschung, Masterarbeiten im Studium</li>
+
+                            </ul>
+                        </div>
+					</div>
+                    <div class="comparison-summary">
+                        <p><strong>Gemeinsamkeiten:</strong> <strong>Kontinuierliche Weiterbildung</strong> | <strong>Investition in Mitarbeiterentwicklung</strong></p>
+                        <p><strong>Unterschiede:</strong> ADS: Digitale Lernplatformen (Udemy) | Dermalog: Externe Konferenzen & Forschungsförderung</p>
+                    </div>
+				</section>
+
+				<!-- Fazit -->
+				<section>
+					<h2 style="margin-bottom: 10px;">Fazit</h2>
+					<div class="two-column">
+						<div class="column ads-column">
+							<h3>ADS</h3>
+                            <ul style="font-size: 0.6em;">
+                                <li><strong>Nischenfokus:</strong> Edeka-Kaufleute</li>
+                                <li><strong>Regional:</strong> Deutschlandweit</li>
+                                <li><strong>Dienstleistung:</strong> Steuerberatung</li>
+                                <li><strong>Nachhaltigkeit:</strong> Eigene Abteilung, 100% Ökostrom</li>
+                            </ul>
+						</div>
+						<div class="column dermalog-column">
+							<h3>Dermalog</h3>
+                            <ul style="font-size: 0.6em;">
+                                <li><strong>Global:</strong> Weltmarktführerschaft angestrebt</li>
+                                <li><strong>International:</strong> 100+ Länder</li>
+                                <li><strong>Technologie:</strong> Biometrie HW & SW</li>
+                                <li><strong>Nachhaltigkeit:</strong> ISO-Zertifizierungen, 100% Ökostrom</li>
+                            </ul>
+						</div>
+					</div>
+					<div class="comparison-summary" style="margin-top: 10px; font-size: 0.5em;">
+						<p><strong>Gemeinsamkeiten:</strong> <strong>GmbH</strong> | <strong>Nachhaltigkeit</strong> | <strong>Diversität</strong> | <strong>100% Ökostrom</strong></p>
+						<p><strong>Unterschiede:</strong> ADS = Regionaler Nischenspezialist | Dermalog = Globaler Technologieanbieter</p>
+					</div>
+				</section>
+
 			</div>
 		</div>
 
@@ -25,7 +538,25 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="node_modules/mermaid/dist/mermaid.min.js"></script>
 		<script>
+			// Initialize Mermaid
+			mermaid.initialize({ 
+				startOnLoad: true,
+				theme: 'neutral',
+				themeVariables: {
+					fontSize: '10px'
+				},
+				flowchart: {
+					nodeSpacing: 30,
+					rankSpacing: 30,
+					padding: 10,
+					useMaxWidth: true,
+					htmlLabels: true,
+					curve: 'basis'
+				}
+			});
+
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
@@ -34,6 +565,11 @@
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+
+			// Re-render mermaid diagrams on slide change
+			Reveal.on('slidechanged', () => {
+				mermaid.init(undefined, document.querySelectorAll('.mermaid'));
 			});
 		</script>
 	</body>
